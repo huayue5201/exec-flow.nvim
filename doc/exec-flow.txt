@@ -1,16 +1,18 @@
-*exec-flow.txt*  按执行顺序给代码行打编号锚点
+*exec-flow.txt*  Number code lines in execution order
 
 ==============================================================================
 INTRODUCTION                                                    *exec-flow*
 
-exec-flow.nvim 在阅读代码时按「执行顺序」给行打编号锚点，并可顺序跳转、
-调整顺序、导出 quickfix。锚点只存在内存里，退出 Neovim 即消失。
+exec-flow.nvim anchors code lines with numbers in the order you plan to read
+them, and lets you jump through them sequentially, reorder them, and export
+them to the quickfix list. Anchors live in memory only and disappear when
+Neovim exits.
 
-命令（默认名）：
-  :ExecFlowAdd      标记当前行
-  :ExecFlowList     浮窗列出锚点
-  :ExecFlowClear    清空
-  :ExecFlowQf       导出 quickfix
+Commands (default names):
+  :ExecFlowAdd      mark the current line
+  :ExecFlowList     list anchors in a float
+  :ExecFlowClear    clear all anchors
+  :ExecFlowQf       export to quickfix
 
 ==============================================================================
 SETUP                                                       *exec-flow-setup*
@@ -24,17 +26,18 @@ require("exec_flow").setup({
 })
 <
 
-所有键位默认关闭。`commands`、`label`、`to_editor`、`panel` 均可配置。
+All keymaps are disabled by default. `commands`, `label`, `to_editor` and
+`panel` are all configurable.
 
 ==============================================================================
 KEYMAPS                                                 *exec-flow-keymaps*
 
-浮窗内：
-  <CR>  跳到锚点
-  j/k   移动
-  d     删除锚点
-  J/K   调整执行顺序
-  c     清空全部
-  q     关闭
+Inside the float:
+  <CR>  jump to the anchor
+  j/k   move
+  d     delete the anchor
+  J/K   change execution order
+  c     clear all anchors
+  q     close
 
 vim:tw=78:ts=8:noet:ft=help:norl:

@@ -1,30 +1,30 @@
 # exec-flow.nvim
 
-在阅读一段代码时按「执行顺序」打编号锚点：纯记忆锚点 + 快速跳转，不写文件、不进会话。
+Anchor line numbers in execution order while reading code: pure in-memory anchors plus fast jumps. No files written, no session involved.
 
 ```
-:ExecFlowAdd      标记当前行（自动取下一个编号）
-:ExecFlowList     浮窗列出全部锚点（<CR> 跳、d 删、J/K 调序、c 清空）
-:ExecFlowClear    清空全部
-:ExecFlowQf       导出到 quickfix
+:ExecFlowAdd      mark the current line (takes the next number automatically)
+:ExecFlowList     list all anchors in a float (<CR> jump, d delete, J/K reorder, c clear)
+:ExecFlowClear    clear all anchors
+:ExecFlowQf       export to the quickfix list
 ```
 
-## 特性
+## Features
 
-- 位置用 extmark 保存，插入 / 删除行自动跟随，不存死行号
-- 编号右对齐到窗口右侧，不挤占代码、不与缩进重叠
-- 编号 = 插入顺序；`J/K` 调序后统一重编号
-- `]x` / `[x` 式跳转由宿主绑定，**按编号顺序**而不是文件行序
-- 只活在内存里，重开 Neovim 即消失；长期追踪交给 todo 类插件
-- 浮窗交互内置（私有 `exec_flow.float_list`），无第三方依赖
+- Positions are stored as extmarks, so they follow inserted / deleted lines instead of storing fixed line numbers
+- Numbers are right-aligned to the window edge, so they do not crowd the code or overlap indentation
+- Numbers reflect insertion order; after `J/K` reordering everything is renumbered
+- `]x` / `[x` style jumps are bound by the host and go in **sequence order**, not file line order
+- Memory only: anchors disappear when Neovim exits; long-term tracking belongs to TODO-style plugins
+- The float UI is built in (private `exec_flow.float_list`), no third-party dependencies
 
-## 安装
+## Installation
 
-任意插件管理器，Lua 模块名为 `exec_flow`：
+Any plugin manager; the Lua module name is `exec_flow`:
 
 ```lua
 require("exec_flow").setup({
-  -- 键位默认全部关闭
+  -- all keys are disabled by default
   keys = {
     add = "<leader>xa",
     list = "<leader>xl",
@@ -37,22 +37,22 @@ require("exec_flow").setup({
 })
 ```
 
-## 配置
+## Configuration
 
-| 选项 | 默认 | 说明 |
+| Option | Default | Description |
 | --- | --- | --- |
-| `keys` | `false` | 键位表；`false` 表示完全不注册 |
-| `commands` | `{add="ExecFlowAdd",list="ExecFlowList",clear="ExecFlowClear",qf="ExecFlowQf"}` | 命令名，可改名或设为 `false` |
+| `keys` | `false` | Keymap table; `false` registers nothing |
+| `commands` | `{add="ExecFlowAdd",list="ExecFlowList",clear="ExecFlowClear",qf="ExecFlowQf"}` | Command names; rename them or set to `false` |
 | `label` | `⟦n⟧` | `fun(seq) -> string` |
-| `to_editor` | `nil` | 跳转前把焦点挪到普通编辑窗口；返回 `false` 表示未能移动 |
-| `panel.title` | `" 执行流 "` | 浮窗标题 |
-| `panel.max_height` | `20` | 浮窗最大高度 |
+| `to_editor` | `nil` | Move focus to a normal editing window before jumping; return `false` if it could not move |
+| `panel.title` | `" 执行流 "` | Float title (built-in default) |
+| `panel.max_height` | `20` | Maximum float height |
 
 ## API
 
-`add()`、`delete()`、`delete_at(idx)`、`clear()`、`jump(dir)`、`panel()`、
-`move(entry, dir)`、`move_by_idx(idx, dir)`、`qf()`、`setup(opts)`。
+`add()`, `delete()`, `delete_at(idx)`, `clear()`, `jump(dir)`, `panel()`,
+`move(entry, dir)`, `move_by_idx(idx, dir)`, `qf()`, `setup(opts)`.
 
-## 健康检查
+## Health check
 
 `:checkhealth exec-flow`
