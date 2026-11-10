@@ -77,7 +77,7 @@ end
 --- 按当前顺序重写所有行尾编号
 local function renumber()
 	for i, a in ipairs(anchors) do
-		local row, col = position(a)
+		local row = position(a)
 		if row then
 			pcall(vim.api.nvim_buf_set_extmark, a.buf, ns, row, 0, {
 				id = a.mark,
