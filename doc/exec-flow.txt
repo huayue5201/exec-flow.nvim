@@ -1,0 +1,40 @@
+*exec-flow.txt*  按执行顺序给代码行打编号锚点
+
+==============================================================================
+INTRODUCTION                                                    *exec-flow*
+
+exec-flow.nvim 在阅读代码时按「执行顺序」给行打编号锚点，并可顺序跳转、
+调整顺序、导出 quickfix。锚点只存在内存里，退出 Neovim 即消失。
+
+命令（默认名）：
+  :ExecFlowAdd      标记当前行
+  :ExecFlowList     浮窗列出锚点
+  :ExecFlowClear    清空
+  :ExecFlowQf       导出 quickfix
+
+==============================================================================
+SETUP                                                       *exec-flow-setup*
+
+>lua
+require("exec_flow").setup({
+  keys = {
+    add = "<leader>xa", list = "<leader>xl", delete = "<leader>xd",
+    clear = "<leader>xc", qf = "<leader>xq", next = "]x", prev = "[x",
+  },
+})
+<
+
+所有键位默认关闭。`commands`、`label`、`to_editor`、`panel` 均可配置。
+
+==============================================================================
+KEYMAPS                                                 *exec-flow-keymaps*
+
+浮窗内：
+  <CR>  跳到锚点
+  j/k   移动
+  d     删除锚点
+  J/K   调整执行顺序
+  c     清空全部
+  q     关闭
+
+vim:tw=78:ts=8:noet:ft=help:norl:
