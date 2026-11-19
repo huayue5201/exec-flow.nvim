@@ -20,9 +20,10 @@ Anchor line numbers in execution order while reading code: pure in-memory anchor
 
 ## Installation
 
-Any plugin manager; the Lua module name is `exec_flow`:
+With `vim.pack` (Neovim 0.12+):
 
 ```lua
+vim.pack.add({ "https://github.com/huayue5201/exec-flow.nvim" })
 require("exec_flow").setup({
   -- all keys are disabled by default
   keys = {
@@ -35,6 +36,26 @@ require("exec_flow").setup({
     prev = "[x",
   },
 })
+```
+
+With lazy.nvim:
+
+```lua
+{
+  "huayue5201/exec-flow.nvim",
+  opts = {
+    -- all keys are disabled by default
+    keys = {
+      add = "<leader>xa",
+      list = "<leader>xl",
+      delete = "<leader>xd",
+      clear = "<leader>xc",
+      qf = "<leader>xq",
+      next = "]x",
+      prev = "[x",
+    },
+  },
+}
 ```
 
 ## Configuration
